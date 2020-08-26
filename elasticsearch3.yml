@@ -2,28 +2,28 @@
 cluster.name: elk4devops
 
 # ------------------------------------ Node ------------------------------------
-node.name: master1
+node.name: es3
 
 # ----------------------------------- Paths ------------------------------------
 path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch
 
 # ---------------------------------- Network -----------------------------------
-network.host: 192.168.50.11
+network.host: es3.zenlab.local
 
 # --------------------------------- Discovery ----------------------------------
-cluster.initial_master_nodes: ["master1"]
+cluster.initial_master_nodes: ["es1"]
+discovery.seed_hosts: ["es1.zenlab.local"]
 
 # ------------------------------- TLS and Cert ---------------------------------
-
-#启用用户名密码认证
 xpack.security.enabled: true
 
-#启用 ES 集群内加密传输
 xpack.security.transport.ssl.enabled: true
-xpack.security.transport.ssl.verification_mode: certificate
-xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
-xpack.security.transport.ssl.truststore.path: elastic-certificates.p12
+xpack.security.transport.ssl.verification_mode: certificate 
+xpack.security.transport.ssl.keystore.path: ${node.name}.p12  
+xpack.security.transport.ssl.truststore.path: ca.p12 
+
+xpack.monitoring.collection.enabled: true
 
 #  ------------------------------- App Search ---------------------------------
 action.auto_create_index: ".app-search-*-logs-*,-.app-search-*,+*"

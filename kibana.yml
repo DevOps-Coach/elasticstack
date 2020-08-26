@@ -1,5 +1,10 @@
+#Kibana 服务端口
 server.port: 5601
-server.host: 192.168.50.11
+#Kibana 服务 IP
+server.host: 192.168.50.20
+#后台 ES 集群或者服务器地址，可以写多个
 elasticsearch.hosts: ["http://192.168.50.11:9200"]
+#ES 服务器访问用户名
 elasticsearch.username: elastic
-elasticsearch.password: eskF8STq8dQexOxwQgPq
+#ES 服务器访问用户密码
+elasticsearch.password: 0LghDiApKJfGhGeVJ8Jw

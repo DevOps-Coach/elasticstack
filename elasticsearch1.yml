@@ -1,29 +1,39 @@
 # ---------------------------------- Cluster -----------------------------------
+#设定集群名称
 cluster.name: elk4devops
 
 # ------------------------------------ Node ------------------------------------
-node.name: master1
+#设定节点名称，此处使用的是 hostname
+node.name: es1
 
 # ----------------------------------- Paths ------------------------------------
+#设定 es 服务器数据目录
 path.data: /var/lib/elasticsearch
+#设定 es 服务器日志目录
 path.logs: /var/log/elasticsearch
 
 # ---------------------------------- Network -----------------------------------
-network.host: 192.168.50.11
+#设定此节点加入网络的名称，这里使用的是 FQDN
+network.host: es1.zenlab.local
 
 # --------------------------------- Discovery ----------------------------------
-cluster.initial_master_nodes: ["master1"]
+#设定初始的 master 节点为 es1
+cluster.initial_master_nodes: ["es1"]
+discovery.seed_hosts: ["es1.zenlab.local"]
 
 # ------------------------------- TLS and Cert ---------------------------------
-
-#启用用户名密码认证
+#启用用户名和密码认证
 xpack.security.enabled: true
 
 #启用 ES 集群内加密传输
 xpack.security.transport.ssl.enabled: true
-xpack.security.transport.ssl.verification_mode: certificate
-xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
-xpack.security.transport.ssl.truststore.path: elastic-certificates.p12
+xpack.security.transport.ssl.verification_mode: certificate 
+xpack.security.transport.ssl.keystore.path: ${node.name}.p12  
+xpack.security.transport.ssl.truststore.path: ca.p12 
+
+#启用监控数据收集
+xpack.monitoring.collection.enabled: true
 
 #  ------------------------------- App Search ---------------------------------
+#提前为 App Search 做好准备
 action.auto_create_index: ".app-search-*-logs-*,-.app-search-*,+*"

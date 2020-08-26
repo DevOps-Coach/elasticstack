@@ -1,0 +1,32 @@
+# instance.yml
+instances:
+  - name: 'es1'
+    ip: ['192.168.50.11']
+    dns: [ 'es1.zenlab.local' ]
+  - name: "es2"
+    ip: ['192.168.50.12']
+    dns: [ 'es2.zenlab.local' ]
+  - name: 'es3'
+    ip: ['192.168.50.13']
+    dns: [ 'es3.zenlab.local' ]
+  - name: 'es4'
+    ip: ['192.168.50.14']
+    dns: [ 'es4.zenlab.local' ]
+  - name: "es5"
+    ip: ['192.168.50.15']
+    dns: [ 'es5.zenlab.local' ]
+  - name: 'es6'
+    ip: ['192.168.50.16']
+    dns: [ 'es6.zenlab.local' ]
+  - name: 'es7'
+    ip: ['192.168.50.17']
+    dns: [ 'es1.zenlab.local' ]
+  - name: "es8"
+    ip: ['192.168.50.18']
+    dns: [ 'es2.zenlab.local' ]
+  - name: 'es9'
+    ip: ['192.168.50.19']
+    dns: [ 'es3.zenlab.local' ]
+  - name: 'lk'
+    ip: ['192.168.50.20']
+    dns: [ 'lk.zenlab.local' ]

@@ -4,7 +4,7 @@
 # Every Vagrant development environment requires a box. You can search for
 # boxes at https://atlas.hashicorp.com/search.
 BOX_IMAGE = "bento/centos-8"
-ES_COUNT = 3
+ES_COUNT = 8
 NODE_COUNT = 4
 
 
@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
         vb.memory = 4048
         vb.cpus = 1 
       end
-      es_config.vm.provision :shell, path: 'pre-install-ES.sh'
+      es_config.vm.provision :shell, path: "pre-install-es#{i}.sh"
     end
   end
   
@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
       vb.memory = 2048
       vb.cpus = 1
     end
-    #logstash_config.vm.provision :shell, path: 'pre-install-ES.sh'
+    lk_config.vm.provision :shell, path: 'pre-install-lk.sh'
   end
 
   # 两个被管理节点，用于部署监控应用和各种 Beats 代理
