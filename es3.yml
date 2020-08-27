@@ -2,28 +2,41 @@
 cluster.name: elk4devops
 
 # ------------------------------------ Node ------------------------------------
-node.name: es2
+node.name: es3
 
 # ----------------------------------- Paths ------------------------------------
 path.data: /var/lib/elasticsearch
 path.logs: /var/log/elasticsearch
 
 # ---------------------------------- Network -----------------------------------
-network.host: es2.zenlab.local
+network.host: es3.zenlab.local
 
 # --------------------------------- Discovery ----------------------------------
 cluster.initial_master_nodes: ["es1"]
 discovery.seed_hosts: ["es1.zenlab.local"]
 
 # ------------------------------- TLS and Cert ---------------------------------
+#启用用户名和密码认证
 xpack.security.enabled: true
 
+#启用 ES 集群内节点间通讯加密
 xpack.security.transport.ssl.enabled: true
-xpack.security.transport.ssl.verification_mode: certificate 
-xpack.security.transport.ssl.keystore.path: ${node.name}.p12  
-xpack.security.transport.ssl.truststore.path: ca.p12 
+xpack.security.transport.ssl.certificate_authorities: ca.crt
+xpack.security.transport.ssl.key: ${node.name}.key
+xpack.security.transport.ssl.certificate: ${node.name}.crt
 
+#启用 ES 集群HTTP客户端通讯加密
+xpack.security.http.ssl.enabled: true
+xpack.security.http.ssl.certificate_authorities: ca.crt
+xpack.security.http.ssl.key: ${node.name}.key
+xpack.security.http.ssl.certificate: ${node.name}.crt
+
+#  For Elastic Agent
+xpack.security.authc.api_key.enabled: true
+
+#启用监控数据收集
 xpack.monitoring.collection.enabled: true
 
 #  ------------------------------- App Search ---------------------------------
+#提前为 App Search 做好准备
 action.auto_create_index: ".app-search-*-logs-*,-.app-search-*,+*"

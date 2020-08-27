@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
       es_config.vm.hostname = "es#{i}.zenlab.local"
       es_config.vm.network :private_network, ip: "192.168.50.#{i + 10}"
       es_config.vm.provider :virtualbox do |vb|
-        vb.memory = 4048
+        vb.memory = 2048
         vb.cpus = 1 
       end
       es_config.vm.provision :shell, path: "pre-install-es#{i}.sh"
@@ -34,7 +34,6 @@ Vagrant.configure("2") do |config|
   config.vm.define "lk" do |lk_config|
     lk_config.vm.hostname = "lk.zenlab.local"
     lk_config.vm.network :private_network, ip: "192.168.50.20"
-    lk_config.vm.network 'forwarded_port', guest: 5601, host: 5601
     lk_config.vm.provider :virtualbox do |vb|
       vb.memory = 2048
       vb.cpus = 1

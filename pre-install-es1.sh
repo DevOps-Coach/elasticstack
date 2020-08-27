@@ -24,28 +24,23 @@ sudo sh -c "echo '*' >> /etc/motd"
 #安装 ES 软件包
 sudo rpm -ivh /vagrant/rpm/elasticsearch-$elastic_version-x86_64.rpm 
 
-#创建 ES 集群内部通信加密数字证书
+#创建 ES 集群内部通信加密数字证书，提前清理就的证书文件和目录
 sudo rm -f /vagrant/certs/certs.zip
 sudo rm -rf /vagrant/certs/es*
 sudo rm -rf /vagrant/certs/ca
 sudo rm -rf /vagrant/certs/lk
-sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert -in /vagrant/certs/instance.yml  -out /vagrant/certs/certs.zip -pass testpassword -keep-ca-key -ca-pass testpassword
-
-#创建 ES 的 keystore， 存入证书的加密密码
-sudo echo testpassword   | sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.transport.ssl.keystore.secure_password --stdin --force
-sudo echo testpassword   | sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.transport.ssl.truststore.secure_password --stdin --force
-
+sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert -in /vagrant/certs/instance.yml  -pem  -out /vagrant/certs/certs.zip -s
 
 #解压缩所有证书备用
 sudo /usr/bin/unzip  /vagrant/certs/certs.zip -d /vagrant/certs/
 
 #部署节点需要的秘钥
-sudo cp /vagrant/certs/ca/ca.p12  /etc/elasticsearch/
-sudo cp /vagrant/certs/es1/es1.p12 /etc/elasticsearch/
+sudo cp /vagrant/certs/ca/ca.crt  /etc/elasticsearch/
+sudo cp /vagrant/certs/es1/* /etc/elasticsearch/
 
 
 #更新 ES 默认的配置文件
-sudo cp /vagrant/elasticsearch1.yml /etc/elasticsearch/elasticsearch.yml
+sudo cp /vagrant/es1.yml /etc/elasticsearch/elasticsearch.yml
 
 #配置和启动 ES 系统服务
 sudo systemctl daemon-reload
@@ -58,4 +53,4 @@ sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto -b
 
 #成功顺利的完成了安装
 echo Provisioning script works good!
-echo Please access Elasticsearch http://192.168.50.11:9200
+echo Please access Elasticsearch https://192.168.50.11:9200

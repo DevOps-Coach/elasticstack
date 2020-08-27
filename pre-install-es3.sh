@@ -24,17 +24,13 @@ sudo sh -c "echo '*' >> /etc/motd"
 #安装 ES 软件
 sudo rpm -ivh /vagrant/rpm/elasticsearch-$elastic_version-x86_64.rpm 
 
-#创建 ES 的 keystore， 存入证书的加密密码
-sudo echo testpassword   | sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.transport.ssl.keystore.secure_password --stdin --force
-sudo echo testpassword   | sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.transport.ssl.truststore.secure_password --stdin --force
-
 #部署节点需要的秘钥
-sudo cp /vagrant/certs/ca/ca.p12  /etc/elasticsearch/
-sudo cp /vagrant/certs/es3/es3.p12 /etc/elasticsearch/
+sudo cp /vagrant/certs/ca/ca.crt  /etc/elasticsearch/
+sudo cp /vagrant/certs/es3/* /etc/elasticsearch/
 
 
 #更新 ES 默认的配置文件
-sudo cp /vagrant/elasticsearch3.yml /etc/elasticsearch/elasticsearch.yml
+sudo cp /vagrant/es3.yml /etc/elasticsearch/elasticsearch.yml
 
 #配置和启动 ES 系统服务
 sudo systemctl daemon-reload

@@ -27,9 +27,18 @@ xpack.security.enabled: true
 
 #启用 ES 集群内加密传输
 xpack.security.transport.ssl.enabled: true
-xpack.security.transport.ssl.verification_mode: certificate 
-xpack.security.transport.ssl.keystore.path: ${node.name}.p12  
-xpack.security.transport.ssl.truststore.path: ca.p12 
+xpack.security.transport.ssl.certificate_authorities: ca.crt
+xpack.security.transport.ssl.key: ${node.name}.key
+xpack.security.transport.ssl.certificate: ${node.name}.crt
+
+#启用 ES 集群客户端访问加密
+xpack.security.http.ssl.enabled: true
+xpack.security.http.ssl.certificate_authorities: ca.crt
+xpack.security.http.ssl.key: ${node.name}.key
+xpack.security.http.ssl.certificate: ${node.name}.crt
+
+#  For Elastic Agent
+xpack.security.authc.api_key.enabled: true
 
 #启用监控数据收集
 xpack.monitoring.collection.enabled: true
