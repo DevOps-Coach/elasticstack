@@ -12,13 +12,13 @@ server.ssl.certificate: /etc/kibana/lk.crt
 #服务器私钥
 server.ssl.key:  /etc/kibana/lk.key
 #ES 集群链接信息，多活高可用
-elasticsearch.hosts: ["https://es1.zenlab.local:9200","https://es2.zenlab.local:9200","https://es3.zenlab.local:9200"]
+elasticsearch.hosts: ["https://es1.zenlab.local:9200"]
 #使用 ES 内置的 kibana 用户名和创建的密码
-elasticsearch.username: kibana_system
-elasticsearch.password: Ils2feList7EugGpz3jB
+elasticsearch.username: elastic
+elasticsearch.password: 3J0QRZEUFlyTu8sHGouZ
 #设置 ca 根证书
 elasticsearch.ssl.certificateAuthorities: ["/etc/kibana/ca.crt" ]
 
 #For Elastic Agent
 xpack.ingestManager.fleet.tlsCheckDisabled: true
-xpack.encryptedSavedObjects.encryptionKey: "Si0gjCjujZ0LghDiApKJfGhGeVJ8JwxrY1z7rOpB"
+xpack.encryptedSavedObjects.encryptionKey: "Si0gjCjujZ0LghDiApKJfGhGeVJ8JwxrY1z7rOpBva"
