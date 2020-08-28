@@ -3,7 +3,7 @@
 # url:martinliu.cn
 
 #设定 Kibana 的安装版本
-elastic_version='7.9.0'
+elastic_version='7.8.1'
 
 #开始安装流程
 echo "Provisioning a Kibana "$elastic_version" Server..."
@@ -21,9 +21,9 @@ sudo cp /vagrant/certs/ca/ca.crt  /etc/kibana/
 sudo cp /vagrant/certs/lk/* /etc/kibana/
 
 #配置和启动 Kibana 服务
-sudo systemctl enable kibana
-sudo systemctl start kibana
-sudo systemctl status kibana
+#sudo systemctl enable kibana
+#sudo systemctl start kibana
+#sudo systemctl status kibana
 
 #Kibana 服务器成功安装完毕
 echo Provisioning script works good!

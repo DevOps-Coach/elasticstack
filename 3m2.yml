@@ -1,0 +1,7 @@
+cluster.name: 1m-2d
+node.name: es2
+network.host: 192.168.50.12
+#discovery.seed_hosts: ["es1","es2","es3"]
+discovery.seed_providers: file
+cluster.initial_master_nodes: ["es1","es2","es3"]
+node.roles: [ master ]

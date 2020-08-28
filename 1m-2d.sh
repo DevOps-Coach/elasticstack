@@ -3,7 +3,8 @@
 # url:martinliu.cn
 
 #指定安装的版本
-elastic_version='7.8.1'
+elastic_version='7.9.0'
+es-hostname=$(hostname)
 
 #开始安装流程
 echo "Provisioning a Elasticsearch "$elastic_version" Server..."
@@ -14,7 +15,6 @@ sudo swapoff -a
 sudo sysctl -w vm.max_map_count=262144
 sudo sysctl -p
 sudo sh -c "echo 'elasticsearch  -  nofile  65535' >> /etc/security/limits.conf"
-sudo sh -c "echo 'vagrant  -  nofile  65535' >> /etc/security/limits.conf"
 
 #设置个性化 SSH 登录提示信息
 sudo sh -c "echo '**** --  --  --  --  --  --  --  -- ****' > /etc/motd"
@@ -26,18 +26,18 @@ sudo sh -c "echo '*' >> /etc/motd"
 sudo rpm -ivh /vagrant/rpm/elasticsearch-$elastic_version-x86_64.rpm 
 
 #创建 ES 集群内部通信加密数字证书，提前清理就的证书文件和目录
-sudo rm -f /vagrant/certs/certs.zip
-sudo rm -rf /vagrant/certs/es*
-sudo rm -rf /vagrant/certs/ca
-sudo rm -rf /vagrant/certs/lk
-sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert -in /vagrant/certs/instance.yml  -pem  -out /vagrant/certs/certs.zip -s
+#sudo rm -f /vagrant/certs/certs.zip
+#sudo rm -rf /vagrant/certs/es*
+#sudo rm -rf /vagrant/certs/ca
+#sudo rm -rf /vagrant/certs/lk
+#sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert -in /vagrant/certs/instance.yml  -pem  -out /vagrant/certs/certs.zip -s
 
 #解压缩所有证书备用
-sudo /usr/bin/unzip  /vagrant/certs/certs.zip -d /vagrant/certs/
+#sudo /usr/bin/unzip  /vagrant/certs/certs.zip -d /vagrant/certs/
 
 #部署节点需要的秘钥
 sudo cp /vagrant/certs/ca/ca.crt  /etc/elasticsearch/
-sudo cp /vagrant/certs/es1/* /etc/elasticsearch/
+sudo cp /vagrant/certs/$es-hostname/* /etc/elasticsearch/
 
 
 #更新 ES 默认的配置文件

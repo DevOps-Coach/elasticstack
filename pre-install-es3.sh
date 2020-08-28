@@ -3,7 +3,7 @@
 # url:martinliu.cn
 
 #确定安装的版本
-elastic_version='7.9.0'
+elastic_version='7.8.1'
 
 #开始安装流程
 echo "Provisioning a Elasticsearch "$elastic_version" Server..."
@@ -41,4 +41,4 @@ sudo systemctl status elasticsearch
 
 #成功顺利的完成了安装
 echo Provisioning script works good!
-echo Please access Elasticsearch http://192.168.50.13:9200
+echo Please access Elasticsearch https://192.168.50.13:9200

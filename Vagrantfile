@@ -26,7 +26,8 @@ Vagrant.configure("2") do |config|
         vb.memory = 2048
         vb.cpus = 1 
       end
-      es_config.vm.provision :shell, path: "pre-install-es#{i}.sh"
+      #es_config.vm.provision :shell, path: "pre-install-es#{i}.sh"
+      es_config.vm.provision :shell, path: "es-rpm.sh"
     end
   end
   
