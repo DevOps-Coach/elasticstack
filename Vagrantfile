@@ -5,6 +5,7 @@
 # boxes at https://atlas.hashicorp.com/search.
 BOX_IMAGE = "bento/centos-8"
 ES_COUNT = 8
+MA_COUNT = 3
 NODE_COUNT = 4
 
 
@@ -21,20 +22,33 @@ Vagrant.configure("2") do |config|
   (1..ES_COUNT).each do |i|
     config.vm.define "es#{i}" do |es_config|
       es_config.vm.hostname = "es#{i}.zenlab.local"
-      es_config.vm.network :private_network, ip: "192.168.50.#{i + 10}"
+      es_config.vm.network :private_network, ip: "192.168.50.#{i + 20}"
       es_config.vm.provider :virtualbox do |vb|
         vb.memory = 2048
         vb.cpus = 1 
       end
       #es_config.vm.provision :shell, path: "pre-install-es#{i}.sh"
-      es_config.vm.provision :shell, path: "es-rpm.sh"
+      es_config.vm.provision :shell, path: "es-tar.sh"
     end
   end
   
+  # 用于部署 Elasticsearch 服务器的集群 : 单节点、三节点对等、三节点专用 master
+  (1..MA_COUNT).each do |i|
+    config.vm.define "ma#{i}" do |ma_config|
+      ma_config.vm.hostname = "ma#{i}.zenlab.local"
+      ma_config.vm.network :private_network, ip: "192.168.50.#{i + 10}"
+      ma_config.vm.provider :virtualbox do |vb|
+        vb.memory = 1024
+        vb.cpus = 1 
+      end
+      ma_config.vm.provision :shell, path: "es-tar.sh"
+    end
+  end
+
   # 用于部署 Kibana、Logstash 、APM Server、Heatbeat 和 Packetbeat
   config.vm.define "lk" do |lk_config|
     lk_config.vm.hostname = "lk.zenlab.local"
-    lk_config.vm.network :private_network, ip: "192.168.50.20"
+    lk_config.vm.network :private_network, ip: "192.168.50.70"
     lk_config.vm.provider :virtualbox do |vb|
       vb.memory = 2048
       vb.cpus = 1
@@ -46,7 +60,7 @@ Vagrant.configure("2") do |config|
   (1..NODE_COUNT).each do |i|
     config.vm.define "node#{i}" do |node_config|
       node_config.vm.hostname = "node#{i}.zenlab.local"
-      node_config.vm.network :private_network, ip: "192.168.50.#{i + 20}"
+      node_config.vm.network :private_network, ip: "192.168.50.#{i + 80}"
       node_config.vm.provider :virtualbox do |vb|
         vb.memory = 1024
         vb.cpus = 1
