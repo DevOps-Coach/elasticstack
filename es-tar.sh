@@ -15,7 +15,6 @@ sudo sysctl -w vm.max_map_count=262144
 sudo sysctl -p
 sudo sh -c "echo 'vagrant  -  nofile  65535' >> /etc/security/limits.conf"
 sudo sh -c "echo 'vagrant  -  nproc  65535' >> /etc/security/limits.conf"
-sudo swapoff -a 
 sudo sysctl -w net.ipv4.tcp_retries2=5
 
 #设置个性化 SSH 登录提示信息
