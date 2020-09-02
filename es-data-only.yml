@@ -1,5 +1,5 @@
 #默认值是 elasticsearch，所有相同集群名称的节点归属一个集群
-cluster.name: 3m-2d
+cluster.name: 3m-4d
 
 #master-eligible 节点相互发现后，至少 2 个即可选举成功
 discovery.seed_hosts: ["192.168.50.11","192.168.50.12","192.168.50.13"]
@@ -22,6 +22,7 @@ path.logs: /var/log/elasticsearch
 #下面的是节点的名为 eth1 的网卡的任何 ip 上提供 es 服务
 network.host: _eth1_
 
+#专用 master 角色
+#node.roles: [ master ]
 #专用 data 角色
-node.roles: [ data, ingest ]
-node.attr.box_type: hot
+node.roles: [ data ]

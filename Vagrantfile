@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
         vb.cpus = 1 
       end
       #es_config.vm.provision :shell, path: "pre-install-es#{i}.sh"
-      es_config.vm.provision :shell, path: "es-tar.sh"
+      es_config.vm.provision :shell, path: "es-cd.sh"
     end
   end
   
@@ -38,10 +38,10 @@ Vagrant.configure("2") do |config|
       ma_config.vm.hostname = "ma#{i}.zenlab.local"
       ma_config.vm.network :private_network, ip: "192.168.50.#{i + 10}"
       ma_config.vm.provider :virtualbox do |vb|
-        vb.memory = 1024
+        vb.memory = 2048
         vb.cpus = 1 
       end
-      ma_config.vm.provision :shell, path: "es-tar.sh"
+      ma_config.vm.provision :shell, path: "es-3m.sh"
     end
   end
 

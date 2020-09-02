@@ -24,3 +24,7 @@
     es1: PASSWORD remote_monitoring_user = T8Uq4CDpJeCFG9DBEL23
     es1: Changed password for user elastic
     es1: PASSWORD elastic = VVPbAfv8yWs4BpJeo41y
+
+
+curl -H "Content-Type: application/json" -XPOST "192.168.50.11:9200/test-data/_bulk?pretty&refresh" --data-binary "@accounts.json"
+curl "localhost:9200/_cat/indices?v"
