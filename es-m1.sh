@@ -25,7 +25,6 @@ sudo sh -c "echo '*' >> /etc/motd"
 sudo rpm -ivh /vagrant/rpm/elasticsearch-$elastic_version-x86_64.rpm 
 
 #更新 ES 默认的配置文件
-#sudo cp /vagrant/jvm.options.256m /etc/elasticsearch/jvm.options
 sudo cp /vagrant/es-m1.yml /etc/elasticsearch/elasticsearch.yml
 
 #配置和启动 ES 系统服务
@@ -38,10 +37,10 @@ sudo systemctl status elasticsearch
 sudo rpm -ivh /vagrant/rpm/kibana-$elastic_version-x86_64.rpm 
 
 #更新 Kibana 配置文件
-#sudo sh -c "echo 'elasticsearch.hosts: http://192.168.50.11:9200' >> /etc/kibana/kibana.yml"
-#sudo sh -c "echo 'server.hosts: 192.168.50.11' >> /etc/kibana/kibana.yml"
+sudo sh -c "echo 'elasticsearch.hosts: http://192.168.50.11:9200' >> /etc/kibana/kibana.yml"
+sudo sh -c "echo 'server.hosts: 192.168.50.11' >> /etc/kibana/kibana.yml"
 
 #配置和启动 ES 系统服务
-#sudo systemctl enable kibana.service
-#sudo systemctl start kibana.service
-#sudo systemctl status kibana.service
+sudo systemctl enable kibana.service
+sudo systemctl start kibana.service
+sudo systemctl status kibana.service
