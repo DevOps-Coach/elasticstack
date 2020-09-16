@@ -5,7 +5,7 @@
 # echo $VAGRANT_VAGRANTFILE
 
 # boxes at https://atlas.hashicorp.com/search.
-BOX_IMAGE = "bento/centos-8"
+BOX_IMAGE = "bento/centos8"
 MA_COUNT = 1
 
 Vagrant.configure("2") do |config|

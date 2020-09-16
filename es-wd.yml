@@ -2,10 +2,10 @@
 cluster.name: 3m-4d
 
 #master-eligible 节点相互发现后，至少 2 个即可选举成功
-discovery.seed_hosts: ["192.168.50.11","192.168.50.12","192.168.50.13"]
+discovery.seed_hosts: ["10.0.0.41","10.0.0.42","10.0.0.43"]
 #discovery.seed_providers: file
 #master 初始化的候选人清单，最少 1 个，3 个和以上即可容错
-#cluster.initial_master_nodes: ["192.168.50.11","192.168.50.12","192.168.50.13"]
+#cluster.initial_master_nodes: ["10.0.0.41","10.0.0.42","10.0.0.43"]
 
 #节点的名字默认是 hostname
 #node.name: es1

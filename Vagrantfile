@@ -3,7 +3,7 @@
 
 # Every Vagrant development environment requires a box. You can search for
 # boxes at https://atlas.hashicorp.com/search.
-BOX_IMAGE = "bento/centos-8"
+BOX_IMAGE = "centos8"
 ES_COUNT = 8
 MA_COUNT = 3
 NODE_COUNT = 4
@@ -12,20 +12,22 @@ NODE_COUNT = 4
 Vagrant.configure("2") do |config|
 
   #设置所有 guest 使用相同的静态 dns 解析 /etc/hosts
-  config.vm.provision :hosts, :sync_hosts => true
+  #config.vm.provision :hosts, :sync_hosts => true
   #设置所有虚拟机的操作系统
   config.vm.box = BOX_IMAGE
   #用 vagrant 默认密钥对 ssh 登录
   config.ssh.insert_key = false
+  #config.vm.sync_folder "/home/martinliu/test/nfs", "/vagrant", type: "nfs"
   
   # 用于部署 Elasticsearch 服务器的集群
   (1..ES_COUNT).each do |i|
     config.vm.define "es#{i}" do |es_config|
       es_config.vm.hostname = "es#{i}.zenlab.local"
-      es_config.vm.network :private_network, ip: "192.168.50.#{i + 20}"
+      es_config.vm.network :public_network, ip: "10.0.0.#{i + 50}", bridge: "thunderbolt0", dev:  "thunderbolt0"
       es_config.vm.provider :virtualbox do |vb|
         vb.memory = 2048
-        vb.cpus = 1 
+        vb.cpus = 2
+        vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       end
       #es_config.vm.provision :shell, path: "pre-install-es#{i}.sh"
       es_config.vm.provision :shell, path: "es-cd.sh"
@@ -36,10 +38,11 @@ Vagrant.configure("2") do |config|
   (1..MA_COUNT).each do |i|
     config.vm.define "ma#{i}" do |ma_config|
       ma_config.vm.hostname = "ma#{i}.zenlab.local"
-      ma_config.vm.network :private_network, ip: "192.168.50.#{i + 10}"
+      #ma_config.vm.network :private_network, ip: "192.168.50.#{i + 10}"
+      ma_config.vm.network :public_network, ip: "10.0.0.#{i + 40}", bridge: "thunderbolt0", dev:  "thunderbolt0"
       ma_config.vm.provider :virtualbox do |vb|
         vb.memory = 2048
-        vb.cpus = 1 
+        vb.cpus = 2 
       end
       ma_config.vm.provision :shell, path: "es-3m.sh"
     end
