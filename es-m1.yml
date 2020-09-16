@@ -1,8 +1,9 @@
 #默认值是 elasticsearch
 cluster.name: only-master
 
-#设置成单一节点模式
+#设定参与主节点选举的清单
 discovery.type: single-node
+discovery.seed_hosts: ["192.168.50.11"]
 
 #设定 es 服务器数据目录
 path.data: /var/lib/elasticsearch
@@ -11,4 +12,4 @@ path.logs: /var/log/elasticsearch
 
 #Elasticsearc 服务器提供的 IP，域名和端口设置
 #下面的是 eth1 网卡的任何 ip
-network.host: 0.0.0.0
+network.host: _eth1_

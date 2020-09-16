@@ -1,4 +1,4 @@
 #Kibana 服务ip 或者主机名
 server.host: "192.168.50.11"
-#ES 集群链接信息，多活高可用
+#ES 集群链接信息
 elasticsearch.hosts: ["http://192.168.50.11:9200"]

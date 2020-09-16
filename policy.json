@@ -1,0 +1,197 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": "ec2:RunInstance",
+      "Resource": "*",
+      "Condition": {
+        "StringEqualsIfExists": {
+          "ec2:VolumeType": "gp2",
+          "ec2:InstanceType": [
+            "m2.small",
+            "m2.middle"
+          ]
+        },
+        "NumericLessThan": {
+          "ec2:VolumeSize": "80"
+        }
+      }
+    }
+  ]
+}
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:RunInstance"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "cn-northwest-1",
+          "ec2:instancetype": "m2.middle",
+          "ec2.volumetype": "gp2"
+        },
+        "NumericLessThan": {
+          "ec2:VolumeSize": "80"
+        }
+      }
+    }
+  ]
+}
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowDescribeForAllResources",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "OnlyAllowCertainInstanceTypesToBeCreated",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:RunInstances"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:InstanceType": [
+            "t2.small",
+            "t2.medium"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "AllowAdditionalResourcesToSupportLaunchingEC2ClassicInstances",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:RunInstances"
+      ],
+      "Resource": [
+        "arn:aws:ec2:cn-northwest-1:537314087009key-pair/*",
+        "arn:aws:ec2:cn-northwest-1:537314087009security-group/*",
+        "arn:aws:ec2:cn-northwest-1:537314087009volume/*",
+        "arn:aws:ec2:cn-northwest-1::image/ami-*"
+      ]
+    },
+    {
+      "Sid": "AllowUserToStopStartDeleteInstances",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:TerminateInstances",
+        "ec2:StopInstances",
+        "ec2:StartInstances"
+      ],
+      "Resource": "arn:aws:ec2:cn-northwest-1:537314087009instance/*"
+    }
+  ]
+}
+
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeImages",
+        "ec2:DescribeKeyPairs",
+        "ec2:CreateKeyPair",
+        "ec2:DescribeVpcs",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:CreateSecurityGroup",
+        "ec2:AuthorizeSecurityGroupIngress"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": [
+        "arn:aws:ec2:cn-northwest-1:537314087009:network-interface/*",
+        "arn:aws:ec2:cn-northwest-1:537314087009:volume/*",
+        "arn:aws:ec2:cn-northwest-1:537314087009:key-pair/*",
+        "arn:aws:ec2:cn-northwest-1:537314087009:security-group/*",
+        "arn:aws:ec2:cn-northwest-1:537314087009:subnet/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": [
+        "arn:aws:ec2:cn-northwest-1:537314087009:instance/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "ec2:InstanceType": "t2.micro"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": [
+        "arn:aws:ec2:cn-northwest-1::image/ami-*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "ec2:Owner": "martin"
+        }
+      }
+    }
+  ]
+}
+
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "overrideBlockOnReq",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeImages",
+        "ec2:DescribeKeyPairs",
+        "ec2:CreateKeyPair",
+        "ec2:DescribeVpcs",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:CreateSecurityGroup",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RunInstances",
+        "ec2:TerminateInstances",
+        "ec2:StopInstances",
+        "ec2:StartInstances"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "limitedSize",
+      "Effect": "Deny",
+      "Action": "ec2:RunInstances",
+      "Resource": "*",
+      "Condition": {
+        "ForAnyValue:StringNotLike": {
+          "ec2:InstanceType": [
+            "t2.micro",
+            "t2.medium"
+          ]
+        }
+      }
+    }
+  ]
+}
