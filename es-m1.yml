@@ -1,9 +1,9 @@
 #默认值是 elasticsearch
 cluster.name: only-master
+node.name: node-1
 
-#设定参与主节点选举的清单
-discovery.type: single-node
-discovery.seed_hosts: ["192.168.50.11"]
+#设定参与主节点
+cluster.initial_master_nodes: node-1
 
 #设定 es 服务器数据目录
 path.data: /var/lib/elasticsearch

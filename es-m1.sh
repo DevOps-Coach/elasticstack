@@ -37,8 +37,7 @@ sudo systemctl status elasticsearch
 sudo rpm -ivh /vagrant/rpm/kibana-$elastic_version-x86_64.rpm 
 
 #更新 Kibana 配置文件
-sudo sh -c "echo 'elasticsearch.hosts: http://192.168.50.11:9200' >> /etc/kibana/kibana.yml"
-sudo sh -c "echo 'server.hosts: 192.168.50.11' >> /etc/kibana/kibana.yml"
+sudo sh -c "echo 'server.hosts: 10.0.0.41' >> /etc/kibana/kibana.yml"
 
 #配置和启动 ES 系统服务
 sudo systemctl enable kibana.service

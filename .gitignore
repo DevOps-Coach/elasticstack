@@ -12,3 +12,5 @@ rpm/*.rpm
 
 *.zip
 *.gz
+
+.vscode

@@ -25,7 +25,7 @@ sudo sh -c "echo '*' >> /etc/motd"
 sudo rpm -ivh /vagrant/rpm/elasticsearch-$elastic_version-x86_64.rpm 
 
 #更新 ES 默认的配置文件
-#sudo cp /vagrant/jvm.options.256m /etc/elasticsearch/jvm.options
+#sudo cp /vagrant/jvm.options /etc/elasticsearch/jvm.options
 sudo cp /vagrant/es-hd.yml /etc/elasticsearch/elasticsearch.yml
 
 #配置和启动 ES 系统服务

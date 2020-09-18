@@ -23,14 +23,13 @@ Vagrant.configure("2") do |config|
   (1..ES_COUNT).each do |i|
     config.vm.define "es#{i}" do |es_config|
       es_config.vm.hostname = "es#{i}.zenlab.local"
-      es_config.vm.network :public_network, ip: "10.0.0.#{i + 50}", bridge: "thunderbolt0", dev:  "thunderbolt0"
+      es_config.vm.network :public_network, ip: "10.0.0.#{i + 80}", bridge: "thunderbolt0", dev:  "thunderbolt0"
       es_config.vm.provider :virtualbox do |vb|
-        vb.memory = 2048
-        vb.cpus = 2
-        vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        vb.memory = 4096
+        vb.cpus = 4
       end
       #es_config.vm.provision :shell, path: "pre-install-es#{i}.sh"
-      es_config.vm.provision :shell, path: "es-cd.sh"
+      es_config.vm.provision :shell, path: "es-hd.sh"
     end
   end
   
@@ -44,7 +43,7 @@ Vagrant.configure("2") do |config|
         vb.memory = 2048
         vb.cpus = 2 
       end
-      ma_config.vm.provision :shell, path: "es-3m.sh"
+      ma_config.vm.provision :shell, path: "es-m1.sh"
     end
   end
 
@@ -63,7 +62,8 @@ Vagrant.configure("2") do |config|
   (1..NODE_COUNT).each do |i|
     config.vm.define "node#{i}" do |node_config|
       node_config.vm.hostname = "node#{i}.zenlab.local"
-      node_config.vm.network :private_network, ip: "192.168.50.#{i + 80}"
+      #node_config.vm.network :private_network, ip: "192.168.50.#{i + 80}"
+      node_config.vm.network :public_network, ip: "10.0.0.#{i + 60}", bridge: "thunderbolt0", dev:  "thunderbolt0"
       node_config.vm.provider :virtualbox do |vb|
         vb.memory = 1024
         vb.cpus = 1
