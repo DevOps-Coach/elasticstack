@@ -23,6 +23,6 @@ path.logs: /var/log/elasticsearch
 network.host: _eth1_
 
 #专用 master 角色
-#node.roles: [ master ]
+node.roles: [ master ]
 #专用 data 角色
 #node.roles: [ data ]
