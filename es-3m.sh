@@ -3,7 +3,7 @@
 # url: martinliu.cn
 
 #指定安装的版本
-elastic_version='7.9.1'
+elastic_version='7.9.2'
 
 #开始安装流程
 echo "Provisioning a Elasticsearch "$elastic_version" Server..."

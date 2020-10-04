@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
       #ma_config.vm.network :private_network, ip: "192.168.50.#{i + 10}"
       ma_config.vm.network :public_network, ip: "10.0.0.#{i + 40}", bridge: "thunderbolt0", dev:  "thunderbolt0"
       ma_config.vm.provider :libvirt do |vb|
-        vb.memory = 2048 
+        vb.memory = 2048
         vb.cpus = 2 
       end
       ma_config.vm.provision :shell, path: "es-3m.sh"
